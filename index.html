@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOUDMARK — Ads That Work</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0a0a0a;
+    --white: #f5f2eb;
+    --yellow: #f0c61a;
+    --red: #e03030;
+    --gray: #1c1c1c;
+    --muted: #5a5a5a;
+  }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    border-bottom: 1px solid #222;
+    position: sticky;
+    top: 0;
+    background: var(--black);
+    z-index: 10;
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 0.06em;
+    color: var(--yellow);
+  }
+  .nav-links {
+    display: flex;
+    gap: 2.5rem;
+    list-style: none;
+    font-size: 0.85rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+  .nav-links a { color: var(--white); text-decoration: none; opacity: 0.6; transition: opacity 0.2s; }
+  .nav-links a:hover { opacity: 1; }
+  .nav-cta {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 0.6rem 1.4rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #ffd43b; }
+
+  /* HERO */
+  .hero {
+    min-height: 90vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 5rem 3rem 5rem 3rem;
+    border-right: 1px solid #222;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .hero-eyebrow::before {
+    content: '';
+    display: block;
+    width: 2rem;
+    height: 1px;
+    background: var(--yellow);
+  }
+  .hero-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(5rem, 9vw, 9rem);
+    line-height: 0.9;
+    letter-spacing: 0.02em;
+    margin-bottom: 2.5rem;
+  }
+  .hero-headline span { color: var(--yellow); }
+  .hero-sub {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    opacity: 0.65;
+    max-width: 42ch;
+    margin-bottom: 3rem;
+  }
+  .hero-btns {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+  }
+  .btn-primary {
+    background: var(--red);
+    color: var(--white);
+    padding: 1rem 2.2rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .btn-primary:hover { background: #c72828; }
+  .btn-ghost {
+    color: var(--white);
+    font-size: 0.85rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    text-decoration: none;
+    opacity: 0.5;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: opacity 0.2s;
+  }
+  .btn-ghost:hover { opacity: 1; }
+
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem;
+    position: relative;
+    background: var(--gray);
+  }
+  .ticker-wrap {
+    position: absolute;
+    top: 3rem;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    border-bottom: 1px solid #333;
+    padding: 0.8rem 0;
+  }
+  .ticker {
+    display: flex;
+    gap: 3rem;
+    white-space: nowrap;
+    animation: ticker 16s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+    letter-spacing: 0.15em;
+    color: #444;
+  }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+  .stat-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    border: 1px solid #333;
+  }
+  .stat-box {
+    padding: 2rem;
+    border: 1px solid #333;
+  }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 3.5rem;
+    letter-spacing: 0.02em;
+    color: var(--yellow);
+    line-height: 1;
+    margin-bottom: 0.4rem;
+  }
+  .stat-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.4;
+  }
+
+  /* MARQUEE STRIP */
+  .marquee-strip {
+    background: var(--yellow);
+    color: var(--black);
+    padding: 0.85rem 0;
+    overflow: hidden;
+    border-top: 1px solid #222;
+  }
+  .marquee-inner {
+    display: flex;
+    gap: 3rem;
+    animation: ticker 20s linear infinite;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.1rem;
+    letter-spacing: 0.15em;
+    white-space: nowrap;
+  }
+  .marquee-inner span { opacity: 0.35; }
+
+  /* SERVICES */
+  .services {
+    padding: 7rem 3rem;
+  }
+  .section-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid #222;
+    padding-bottom: 2rem;
+  }
+  .section-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 0.8rem;
+  }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4.5rem);
+    letter-spacing: 0.03em;
+    line-height: 1;
+  }
+  .section-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 6rem;
+    color: #1c1c1c;
+    line-height: 1;
+  }
+
+  .service-list { display: flex; flex-direction: column; }
+  .service-item {
+    display: grid;
+    grid-template-columns: 3rem 1fr auto;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid #1e1e1e;
+    cursor: default;
+    transition: background 0.2s;
+  }
+  .service-item:hover { background: #111; padding-left: 1rem; padding-right: 1rem; margin: 0 -1rem; }
+  .service-index {
+    font-size: 0.72rem;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1rem;
+  }
+  .service-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    letter-spacing: 0.03em;
+  }
+  .service-tag {
+    font-size: 0.72rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border: 1px solid #2a2a2a;
+    padding: 0.35rem 0.8rem;
+  }
+
+  /* PROCESS */
+  .process {
+    background: var(--gray);
+    padding: 7rem 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+  }
+  .process-steps { display: flex; flex-direction: column; gap: 0; }
+  .step {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    border-bottom: 1px solid #2e2e2e;
+    position: relative;
+  }
+  .step-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    color: var(--yellow);
+    min-width: 2.5rem;
+    padding-top: 0.2rem;
+  }
+  .step-title {
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+  }
+  .step-desc {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    opacity: 0.5;
+  }
+
+  /* CTA */
+  .cta-section {
+    padding: 8rem 3rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta-section::before {
+    content: 'LET\'S GO';
+    position: absolute;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22vw;
+    color: #141414;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: 0.02em;
+  }
+  .cta-tag {
+    font-size: 0.75rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--yellow);
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+  .cta-headline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 7vw, 7rem);
+    line-height: 0.95;
+    margin-bottom: 2.5rem;
+    position: relative;
+  }
+  .cta-sub {
+    font-size: 1rem;
+    opacity: 0.5;
+    max-width: 46ch;
+    margin: 0 auto 3rem;
+    line-height: 1.7;
+  }
+  .btn-huge {
+    background: var(--red);
+    color: var(--white);
+    padding: 1.3rem 3.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    text-decoration: none;
+    display: inline-block;
+    position: relative;
+    transition: background 0.2s;
+  }
+  .btn-huge:hover { background: #c72828; }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid #1e1e1e;
+    padding: 2rem 3rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.78rem;
+    opacity: 0.3;
+    letter-spacing: 0.1em;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .hero-eyebrow { animation: fadeUp 0.6s ease both; }
+  .hero-headline { animation: fadeUp 0.6s 0.1s ease both; }
+  .hero-sub { animation: fadeUp 0.6s 0.2s ease both; }
+  .hero-btns { animation: fadeUp 0.6s 0.3s ease both; }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .process { grid-template-columns: 1fr; }
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .services, .cta-section { padding: 4rem 1.5rem; }
+    .hero-left { padding: 4rem 1.5rem; }
+    footer { flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Loudmark</div>
+  <ul class="nav-links">
+    <li><a href="#">Work</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">About</a></li>
+    <li><a href="#">Contact</a></li>
+  </ul>
+  <a href="#" class="nav-cta">Get a Quote</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-eyebrow">Advertising Agency</p>
+    <h1 class="hero-headline">
+      Ads That<br><span>Actually</span><br>Sell.
+    </h1>
+    <p class="hero-sub">We build high-impact advertising campaigns for businesses that are serious about growth. No fluff. No filler. Just results.</p>
+    <div class="hero-btns">
+      <a href="#" class="btn-primary">Start a Campaign</a>
+      <a href="#" class="btn-ghost">See Our Work →</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="ticker-wrap">
+      <div class="ticker">
+        <span>SOCIAL ADS</span><span>·</span>
+        <span>SEARCH ADS</span><span>·</span>
+        <span>VIDEO</span><span>·</span>
+        <span>OOH</span><span>·</span>
+        <span>DISPLAY</span><span>·</span>
+        <span>RETARGETING</span><span>·</span>
+        <span>SOCIAL ADS</span><span>·</span>
+        <span>SEARCH ADS</span><span>·</span>
+        <span>VIDEO</span><span>·</span>
+        <span>OOH</span><span>·</span>
+        <span>DISPLAY</span><span>·</span>
+        <span>RETARGETING</span><span>·</span>
+      </div>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-box">
+        <div class="stat-num">340+</div>
+        <div class="stat-label">Campaigns Launched</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">4.8×</div>
+        <div class="stat-label">Avg. ROAS</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">12yr</div>
+        <div class="stat-label">In Business</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-num">98%</div>
+        <div class="stat-label">Client Retention</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="marquee-strip">
+  <div class="marquee-inner">
+    <span>META ADS</span> · <span>GOOGLE ADS</span> · <span>TIKTOK</span> · <span>YOUTUBE</span> · <span>PROGRAMMATIC</span> · <span>CONNECTED TV</span> · <span>INFLUENCER</span> · <span>EMAIL</span> ·
+    <span>META ADS</span> · <span>GOOGLE ADS</span> · <span>TIKTOK</span> · <span>YOUTUBE</span> · <span>PROGRAMMATIC</span> · <span>CONNECTED TV</span> · <span>INFLUENCER</span> · <span>EMAIL</span> ·
+  </div>
+</div>
+
+<section class="services">
+  <div class="section-header">
+    <div>
+      <p class="section-tag">What We Do</p>
+      <h2 class="section-title">Our Services</h2>
+    </div>
+    <div class="section-num">05</div>
+  </div>
+
+  <div class="service-list">
+    <div class="service-item">
+      <span class="service-index">01</span>
+      <span class="service-name">Paid Social Advertising</span>
+      <span class="service-tag">Meta · TikTok · LinkedIn</span>
+    </div>
+    <div class="service-item">
+      <span class="service-index">02</span>
+      <span class="service-name">Search & Google Ads</span>
+      <span class="service-tag">PPC · Shopping · Display</span>
+    </div>
+    <div class="service-item">
+      <span class="service-index">03</span>
+      <span class="service-name">Creative Production</span>
+      <span class="service-tag">Video · Motion · Copy</span>
+    </div>
+    <div class="service-item">
+      <span class="service-index">04</span>
+      <span class="service-name">Strategy & Media Planning</span>
+      <span class="service-tag">Full-Funnel</span>
+    </div>
+    <div class="service-item">
+      <span class="service-index">05</span>
+      <span class="service-name">Analytics & Reporting</span>
+      <span class="service-tag">Data · Attribution · Insights</span>
+    </div>
+  </div>
+</section>
+
+<section class="process">
+  <div>
+    <p class="section-tag">How It Works</p>
+    <h2 class="section-title">From Brief<br>To Results</h2>
+  </div>
+
+  <div class="process-steps">
+    <div class="step">
+      <span class="step-num">01</span>
+      <div>
+        <p class="step-title">Discovery Call</p>
+        <p class="step-desc">We learn your business, your audience, and what you've already tried. No templates — just honest conversation.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">02</span>
+      <div>
+        <p class="step-title">Strategy & Creative Brief</p>
+        <p class="step-desc">Our team builds a tailored campaign strategy — channels, budgets, messaging, and creative direction — in one week.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">03</span>
+      <div>
+        <p class="step-title">Launch</p>
+        <p class="step-desc">We produce the assets, set up the campaigns, and go live. Every detail checked before anything spends a cent.</p>
+      </div>
+    </div>
+    <div class="step">
+      <span class="step-num">04</span>
+      <div>
+        <p class="step-title">Optimize & Scale</p>
+        <p class="step-desc">Weekly reporting, continuous A/B testing, and aggressive scaling of what works. We treat your budget like it's ours.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <p class="cta-tag">Ready to Grow?</p>
+  <h2 class="cta-headline">Your Best Ad<br>Hasn't Run Yet.</h2>
+  <p class="cta-sub">Book a free 30-minute strategy session. We'll tell you exactly what we'd do for your business — no pitch, no pressure.</p>
+  <a href="#" class="btn-huge">Book a Free Call</a>
+</section>
+
+<footer>
+  <span>© 2025 Loudmark Agency</span>
+  <span>Ads for businesses that mean business.</span>
+</footer>
+
+</body>
+</html>
